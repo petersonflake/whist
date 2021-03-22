@@ -1,6 +1,7 @@
 #ifndef WHIST_H
 #define WHIST_H
 #include "cards.h"
+#include <string.h>
 
 typedef stack trick;
 
@@ -15,5 +16,7 @@ typedef enum {
  * on the direction that lead, and current trumps.
  */
 directions trick_winner(trick *t, directions lead, suits trumps);
+
+int is_legal_move(stack *hand, card *c, stack *trick);
 
 #endif

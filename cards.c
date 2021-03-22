@@ -8,6 +8,14 @@ card* create_card(suits suit, int rank)
     return new_card;
 }
 
+stack* create_hand()
+{
+    stack *new_hand = malloc(sizeof(stack));
+    new_hand->count = 0;
+    new_hand->cards = calloc(13, sizeof(card*));
+    return new_hand;
+}
+
 stack* create_deck()
 {
     stack *new_deck = malloc(sizeof(stack));
@@ -26,11 +34,28 @@ card* pop_stack(stack *cards)
     return cards->cards[--cards->count];
 }
 
-card* get_card(card *c, stack *cards);
+card* get_card(card *c, stack *cards)
+{
+    for(int i = 0; i < cards->count; ++i) {
+        if(cards->cards[i]->rank == c->rank
+                && cards->cards[i]->suit == c->suit) {
+            if(&cards->cards[i] < &cards->cards[cards->count-1])
+                memmove(&cards->cards[i], &cards->cards[i+1], sizeof(&cards->cards[i])*(cards->count-i-1));
+            --cards->count;
+            return c;
+        }
+    }
+    return NULL;
+}
 
 card* find_card(card *c, stack *cards);
 
-int push_card(stack *cards, card *new_card);
+int push_card(stack *cards, card *new_card)
+{
+    int res = 0;
+    cards->cards[cards->count++] = new_card;
+    return res;
+}
 
 void shuffle_cards(stack *cards)
 {

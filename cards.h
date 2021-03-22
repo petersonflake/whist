@@ -4,6 +4,7 @@
 #define DEV 1
 #ifdef DEV
 #include <stdio.h>
+#include <string.h>
 #endif
 
 typedef enum {
@@ -24,6 +25,8 @@ typedef struct {
 } stack;
 
 card* create_card(suits suit, int rank);
+
+stack* create_hand();
 
 stack* create_deck();
 
