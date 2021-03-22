@@ -3,9 +3,14 @@
 #include "player.h"
 #include "ai.h"
 
-typedef struct {
+typedef struct _gameround game_round;
+
+typedef struct _gameround{
     player **players;
     stack *deck;
+    stack *trick;
+    suits trumps;
+    void (*play_game)(game_round *self);
     directions current_turn;
     int game_id;
     int team_1_score;
@@ -15,4 +20,6 @@ typedef struct {
 game_round* create_game(player *player_N, player *player_E, player *player_S, player *player_W);
 
 int play_card(game_round *round, directions dir, card *c);
+
+void play_game(game_round *self);
 #endif

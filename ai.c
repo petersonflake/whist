@@ -21,7 +21,8 @@ card* choose_lead(stack *hand, suits trumps)
             strongest_suit = i;
     }
     /* Get highest card of strongest suit */
-    card *strongest_card = NULL;
+    card *strongest_card = malloc(sizeof(card));
+    strongest_card = NULL;
     for(int i = 0; i < hand->count; ++i) {
         if(strongest_card) {
             if(hand->cards[i]->suit != strongest_suit)
@@ -35,6 +36,7 @@ card* choose_lead(stack *hand, suits trumps)
     }
     if(&hand->cards[hand->count-1] > &strongest_card)
         memmove(&strongest_card, &strongest_card+1, sizeof(card*));
+        //memmove(&cards->cards[i], &cards->cards[i+1], sizeof(&cards->cards[i])*(cards->count-i-1));
     --hand->count;
     return strongest_card;
 }

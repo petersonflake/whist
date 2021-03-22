@@ -16,6 +16,10 @@ player* init_player(char *name);
 
 player* init_anon_player();
 
+player* init_human_player();
+
+player* init_ai_player();
+
 card* ai_make_decision(player *self, stack *trick, suits trumps);
 
 card* human_get_decision(player *self, stack *trick, suits trumps);
