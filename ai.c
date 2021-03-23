@@ -23,7 +23,8 @@ card* choose_lead(stack *hand, suits trumps)
     /* Get highest card of strongest suit */
     card *strongest_card = malloc(sizeof(card));
     strongest_card = NULL;
-    for(int i = 0; i < hand->count; ++i) {
+    int i;
+    for(i = 0; i < hand->count; ++i) {
         if(strongest_card) {
             if(hand->cards[i]->suit != strongest_suit)
                 continue;
@@ -34,11 +35,13 @@ card* choose_lead(stack *hand, suits trumps)
                 strongest_card = hand->cards[i];
         }
     }
-    if(&hand->cards[hand->count-1] > &strongest_card)
-        memmove(&strongest_card, &strongest_card+1, sizeof(card*));
-        //memmove(&cards->cards[i], &cards->cards[i+1], sizeof(&cards->cards[i])*(cards->count-i-1));
-    --hand->count;
-    return strongest_card;
+    //if(&hand->cards[i] < &hand->cards[hand->count-1])
+    //    memmove(&hand->cards[i], &hand->cards[i+1], sizeof(&hand->cards[i])*(hand->count-i-1));
+    //    //memmove(&cards->cards[i], &cards->cards[i+1], sizeof(&cards->cards[i])*(cards->count-i-1));
+    //--hand->count;
+    printf("leading with %d of %d\n", strongest_card->rank, strongest_card->suit);
+    return get_card(strongest_card, hand);
+    //return strongest_card;
 }
 
 /*
@@ -52,37 +55,46 @@ card* choose_lead(stack *hand, suits trumps)
  */
 card* choose_card(stack *hand, trick *t, suits trumps)
 {
+    //return get_card(hand->cards[0], hand);
     suits lead = t->cards[0]->suit;
     suits counts[4] = { 0 };
     int has_lead_suit = 0;
     for(int i = 0; i < hand->count; ++i) {
+        ++counts[hand->cards[i]->suit];
         if(hand->cards[i]->suit == lead) {
-            ++counts[hand->cards[i]->suit];
             has_lead_suit = 1;
-            break;
         }
     }
     if(has_lead_suit) {
-        card *strongest_card = hand->cards[0];
-        card *weakest_card = hand->cards[0];
-        for(int i = 0; i < hand->count; ++i) {
+        card *strongest_card = NULL;
+        card *weakest_card = NULL;
+        int i;
+        for(i = 0; i < hand->count; ++i) {
             if(hand->cards[i]->suit == lead) {
-                if(hand->cards[i]->rank > strongest_card->rank)
+                if(!strongest_card) strongest_card = hand->cards[i];
+                else if(hand->cards[i]->rank >= strongest_card->rank)
                     strongest_card = hand->cards[i];
-                if(hand->cards[i]->rank < weakest_card->rank)
+                if(!weakest_card) weakest_card = hand->cards[i];
+                else if(hand->cards[i]->rank <= weakest_card->rank)
                     weakest_card = hand->cards[i];
             }
         }
-        if(t->cards[t->count-1]->rank > strongest_card->rank) {
-            if(&hand->cards[hand->count-1] > &strongest_card)
-                memmove(&strongest_card, &strongest_card+1, sizeof(card*));
-            --hand->count;
-            return strongest_card;
+        if(t->cards[0]->rank < strongest_card->rank) {
+            //if(&hand->cards[i] < &hand->cards[hand->count-1])
+            //    memmove(&hand->cards[i], &hand->cards[i+1], sizeof(&hand->cards[i])*(hand->count-i-1));
+            //if(&hand->cards[hand->count-1] > &strongest_card)
+            //    memmove(&strongest_card, &strongest_card+1, sizeof(card*));
+            //--hand->count;
+            if(!strongest_card) abort();
+            return get_card(strongest_card, hand);
         } else {
-            if(&hand->cards[hand->count-1] > &weakest_card)
-                memmove(&weakest_card, &weakest_card+1, sizeof(card*));
-            --hand->count;
-            return weakest_card;
+            //if(&hand->cards[i] < &hand->cards[hand->count-1])
+                //memmove(&hand->cards[i], &hand->cards[i+1], sizeof(&hand->cards[i])*(hand->count-i-1));
+            //if(&hand->cards[hand->count-1] > &weakest_card)
+            //    memmove(&weakest_card, &weakest_card+1, sizeof(card*));
+            //--hand->count;
+            if(!weakest_card) abort();
+            return get_card(weakest_card, hand);
         }
 
     } else {
@@ -92,7 +104,8 @@ card* choose_card(stack *hand, trick *t, suits trumps)
                 weakest_suit = counts[i];
 
         card *weakest_card = NULL;
-        for(int i = 0; i < hand->count; ++i) {
+        int i;
+        for(i = 0; i < hand->count; ++i) {
             if(weakest_card) {
                 if(hand->cards[i]->suit == weakest_suit)
                     if(hand->cards[i]->rank < weakest_card->rank)
@@ -102,9 +115,12 @@ card* choose_card(stack *hand, trick *t, suits trumps)
                     weakest_card = hand->cards[i];
             }
         }
-        if(&hand->cards[hand->count-1] > &weakest_card)
-            memmove(&weakest_card, &weakest_card+1, sizeof(card*));
-        --hand->count;
-        return weakest_card;
+        //if(&hand->cards[hand->count-1] > &weakest_card)
+        //    memmove(&weakest_card, &weakest_card+1, sizeof(card*));
+        //if(&hand->cards[i] < &hand->cards[hand->count-1])
+        //    memmove(&hand->cards[i], &hand->cards[i+1], sizeof(&hand->cards[i])*(hand->count-i-1));
+        //--hand->count;
+        if(!weakest_card) return get_card(hand->cards[rand()%hand->count], hand);
+        return get_card(weakest_card, hand);
     }
 }

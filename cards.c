@@ -36,15 +36,20 @@ card* pop_stack(stack *cards)
 
 card* get_card(card *c, stack *cards)
 {
+    card *found = malloc(sizeof(card));
+    found->rank = c->rank;
+    found->suit = c->suit;
     for(int i = 0; i < cards->count; ++i) {
-        if(cards->cards[i]->rank == c->rank
-                && cards->cards[i]->suit == c->suit) {
-            if(&cards->cards[i] < &cards->cards[cards->count-1])
-                memmove(&cards->cards[i], &cards->cards[i+1], sizeof(&cards->cards[i])*(cards->count-i-1));
+        if(cards->cards[i]->rank == c->rank && cards->cards[i]->suit == c->suit) {
+            int j;
+            for(j = i; j < cards->count-1; ++j) {
+                cards->cards[j] = cards->cards[j+1];
+            }
             --cards->count;
-            return c;
+            return found;
         }
     }
+    free(found);
     return NULL;
 }
 

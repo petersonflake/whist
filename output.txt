@@ -1,0 +1,171 @@
+Trump suit 1
+Player 3
+leading with 9 of 3
+Player 0
+Player 1
+Player 2
+The Jack of Clubs
+The 4 of Clubs
+The 4 of Hearts
+The 2 of Hearts
+player 3 won trick 1
+Team 1: 0
+Team 2: 1
+Trump suit 1
+Player 3
+leading with 10 of 1
+Player 0
+Player 1
+Player 2
+The Queen of Diamonds
+The 5 of Hearts
+The 4 of Hearts
+The 2 of Hearts
+player 3 won trick 2
+Team 1: 0
+Team 2: 2
+Trump suit 1
+Player 3
+leading with 8 of 3
+Player 0
+Player 1
+Player 2
+The 10 of Clubs
+The 8 of Clubs
+The 6 of Clubs
+The 2 of Hearts
+player 3 won trick 3
+Team 1: 0
+Team 2: 3
+Trump suit 1
+Player 3
+leading with 7 of 1
+Player 0
+Player 1
+Player 2
+The 9 of Diamonds
+The 5 of Hearts
+The 4 of Hearts
+The 2 of Hearts
+player 3 won trick 4
+Team 1: 0
+Team 2: 4
+Trump suit 1
+Player 3
+leading with 5 of 2
+Player 0
+Player 1
+Player 2
+The 7 of Spades
+The 2 of Spades
+The 3 of Spades
+The 2 of Hearts
+player 3 won trick 5
+Team 1: 0
+Team 2: 5
+Trump suit 1
+Player 3
+leading with 3 of 3
+Player 0
+Player 1
+Player 2
+The 5 of Clubs
+The 5 of Hearts
+The 4 of Hearts
+The 2 of Hearts
+player 3 won trick 6
+Team 1: 0
+Team 2: 6
+Trump suit 1
+Player 3
+leading with 6 of 1
+Player 0
+Player 1
+Player 2
+The 8 of Diamonds
+The 5 of Hearts
+The 4 of Hearts
+The 2 of Hearts
+player 3 won trick 7
+Team 1: 0
+Team 2: 7
+Trump suit 1
+Player 3
+leading with 3 of 2
+Player 0
+Player 1
+Player 2
+The 5 of Spades
+The 5 of Hearts
+The 3 of Spades
+The 2 of Hearts
+player 3 won trick 8
+Team 1: 0
+Team 2: 8
+Trump suit 1
+Player 3
+leading with 1 of 3
+Player 0
+Player 1
+Player 2
+The 3 of Clubs
+The 5 of Hearts
+The 4 of Hearts
+The 2 of Hearts
+player 3 won trick 9
+Team 1: 0
+Team 2: 9
+Trump suit 1
+Player 3
+leading with 4 of 0
+Player 0
+Player 1
+Player 2
+The 6 of Hearts
+The 5 of Hearts
+The 4 of Hearts
+The 2 of Hearts
+player 3 won trick 10
+Team 1: 0
+Team 2: 10
+Trump suit 1
+Player 3
+leading with 1 of 1
+Player 0
+Player 1
+Player 2
+The 3 of Diamonds
+The 5 of Hearts
+The 4 of Hearts
+The 2 of Hearts
+player 3 won trick 11
+Team 1: 0
+Team 2: 11
+Trump suit 1
+Player 3
+leading with 2 of 2
+Player 0
+Player 1
+Player 2
+The 4 of Spades
+The 5 of Hearts
+The 4 of Hearts
+The 2 of Hearts
+player 3 won trick 12
+Team 1: 0
+Team 2: 12
+Trump suit 1
+Player 3
+leading with 0 of 3
+Player 0
+Player 1
+Player 2
+The 2 of Clubs
+The 5 of Hearts
+The 4 of Hearts
+The 2 of Hearts
+player 3 won trick 13
+Team 1: 0
+Team 2: 13
+Team 1: 0
+Team 2: 13
