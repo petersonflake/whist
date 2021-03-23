@@ -30,6 +30,8 @@ stack* create_hand();
 
 stack* create_deck();
 
+void free_stack(stack *cards);
+
 card* pop_stack(stack *cards);
 
 card* get_card(card *c, stack *cards);

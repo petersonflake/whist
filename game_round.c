@@ -46,8 +46,6 @@ int play_card(game_round *round, directions dir, card *c);
 void play_game(game_round *self)
 {
     for(int i = 0; i < 13; ++i) {
-        //self->trick = malloc(sizeof(stack));
-        //self->trick->cards = calloc(4, sizeof(card*));
         self->trick->count = 0;
         printf("Trump suit %d\n", self->trumps);
         while(self->trick->count < 4) {
@@ -73,9 +71,27 @@ void play_game(game_round *self)
             free(self->trick->cards[i]);
             self->trick->cards[i] = NULL;
         }
-        memset(self->trick->cards, 0, sizeof(card*)*4);
         self->trick->count = 0;
         printf("Team 1: %d\nTeam 2: %d\n", self->team_1_score, self->team_2_score);
     }
     printf("Team 1: %d\nTeam 2: %d\n", self->team_1_score, self->team_2_score);
+}
+
+void free_game_round(game_round *game)
+{
+    for(int i = 0; i < 4; ++i) {
+        free_player(game->players[i]);
+    }
+    free(game->players);
+    for(int i = 0; i < 4; ++i) {
+        if(game->trick->cards[i])
+            free(game->trick->cards[i]);
+    }
+    free(game->trick->cards);
+    free(game->trick);
+    for(int i = 0; i < 52; ++i)
+        free(game->deck->cards[i]);
+    free(game->deck->cards);
+    free(game->deck);
+    free(game);
 }

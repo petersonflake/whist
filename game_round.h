@@ -22,4 +22,6 @@ game_round* create_game(player *player_N, player *player_E, player *player_S, pl
 int play_card(game_round *round, directions dir, card *c);
 
 void play_game(game_round *self);
+
+void free_game_round(game_round *game);
 #endif

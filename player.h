@@ -20,6 +20,8 @@ player* init_human_player();
 
 player* init_ai_player();
 
+void free_player(player *p);
+
 card* ai_make_decision(player *self, stack *trick, suits trumps);
 
 card* human_get_decision(player *self, stack *trick, suits trumps);

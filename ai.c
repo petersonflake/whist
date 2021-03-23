@@ -21,7 +21,7 @@ card* choose_lead(stack *hand, suits trumps)
             strongest_suit = i;
     }
     /* Get highest card of strongest suit */
-    card *strongest_card = malloc(sizeof(card));
+    card *strongest_card;
     strongest_card = NULL;
     int i;
     for(i = 0; i < hand->count; ++i) {

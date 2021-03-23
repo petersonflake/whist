@@ -29,6 +29,16 @@ stack* create_deck()
     return new_deck;
 }
 
+void free_stack(stack *cards)
+{
+    if(!cards) return;
+    for(int i = 0; i < cards->count; ++i) {
+        if(cards->cards[i])
+            free(cards->cards[i]);
+    }
+    free(cards);
+}
+
 card* pop_stack(stack *cards)
 {
     return cards->cards[--cards->count];
@@ -50,6 +60,7 @@ card* get_card(card *c, stack *cards)
         }
     }
     free(found);
+    found = NULL;
     return NULL;
 }
 
