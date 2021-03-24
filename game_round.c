@@ -47,13 +47,10 @@ void play_game(game_round *self)
 {
     for(int i = 0; i < 13; ++i) {
         self->trick->count = 0;
-        printf("Trump suit %d\n", self->trumps);
         while(self->trick->count < 4) {
-            printf("Player %d\n", self->current_turn);
             self->current_turn = ++self->current_turn%4;
             push_card(self->trick, self->players[self->current_turn]->get_move(self->players[self->current_turn], self->trick, self->trumps));
         }
-        print_stack(self->trick);
         directions winner;
         switch((winner = trick_winner(self->trick, self->current_turn, self->trumps))) {
             case NORTH:
@@ -65,16 +62,14 @@ void play_game(game_round *self)
                 ++self->team_2_score;
                 break;
         }
-        printf("player %d won trick %d\n", winner, i+1);
         self->current_turn = winner;
         for(int i = 0; i < 4; ++i) {
             free(self->trick->cards[i]);
             self->trick->cards[i] = NULL;
         }
         self->trick->count = 0;
-        printf("Team 1: %d\nTeam 2: %d\n", self->team_1_score, self->team_2_score);
     }
-    printf("Team 1: %d\nTeam 2: %d\n", self->team_1_score, self->team_2_score);
+    printf("Winner %d\n", (self->team_2_score - self->team_1_score > 0) ? 2 : 1);
 }
 
 void free_game_round(game_round *game)

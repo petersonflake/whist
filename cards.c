@@ -77,7 +77,10 @@ void shuffle_cards(stack *cards)
 {
     for(int i = 0; i < cards->count; ++i) {
         card *tmp = cards->cards[i];
-        int ind = rand()%cards->count;
+        /* Better randomness from using higher order bits,
+         * which is why we are not using rand()%size.
+         */
+        int ind = 0 + (int)(10.0*rand()/RAND_MAX + 0.0);
         cards->cards[i] = cards->cards[ind];
         cards->cards[ind] = tmp;
     }
