@@ -40,18 +40,17 @@ card* choose_lead(stack *hand, suits trumps)
 
 /*
  * AI strategy here is to pick the strongest card of the suit
- * led if it would beat the first card played, or the weakest
- * if it would not.  If the ai does not have any cards of the suit
- * played, it plays the weakest card of its weakest suit.
- *
- * TODO:  Make it check other cards played if it is not
- * the second player.  Also, make it take trumps into account.
+ * led if it would beat the first card played, or the weakest of the
+ * same suit if it would not.  If the ai does not have any cards of
+ * the suit played, it plays the weakest card of its weakest suit.
  */
 card* choose_card(stack *hand, trick *t, suits trumps)
 {
     suits lead = t->cards[0]->suit;
     suits counts[4] = { 0 };
     int has_lead_suit = 0;
+    /* Counting cards of each suit for later, and also checking if
+     * we have any cards of the suit lead. */
     for(int i = 0; i < hand->count; ++i) {
         ++counts[hand->cards[i]->suit];
         if(hand->cards[i]->suit == lead) {
@@ -62,6 +61,7 @@ card* choose_card(stack *hand, trick *t, suits trumps)
         card *strongest_card = NULL;
         card *weakest_card = NULL;
         int i;
+        /* Get the strongest and weakest cards of the suit led */
         for(i = 0; i < hand->count; ++i) {
             if(hand->cards[i]->suit == lead) {
                 if(!strongest_card) strongest_card = hand->cards[i];
@@ -72,14 +72,24 @@ card* choose_card(stack *hand, trick *t, suits trumps)
                     weakest_card = hand->cards[i];
             }
         }
-        if(t->cards[0]->rank < strongest_card->rank) {
-            if(!strongest_card) abort();
-            return get_card(strongest_card, hand);
-        } else {
-            if(!weakest_card) abort();
-            return get_card(weakest_card, hand);
+        for(int i = 0; i < t->count; ++i) {
+            /* Only play strongest card if it would win */
+            if(t->cards[i]->suit == trumps || (t->cards[i]->suit == lead && t->cards[i]->rank > strongest_card->rank))
+                return get_card(weakest_card, hand);
         }
-
+        /* Only play strongest card if it would not take trick from an ally */
+        switch(t->count) {
+            case 1:
+            case 3:
+                return get_card(strongest_card, hand);
+                break;
+            case 2:
+                return get_card(weakest_card, hand);
+                break;
+            default:
+                fprintf(stderr, "Trick has wrong number of cards: %d\n", t->count);
+                return NULL;
+        }
     } else {
         suits weakest_suit = -1;
         for(int i = 0; i < 4; ++i) {
