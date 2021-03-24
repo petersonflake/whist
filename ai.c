@@ -83,7 +83,6 @@ card* choose_card(stack *hand, trick *t, suits trumps)
     } else {
         suits weakest_suit = -1;
         for(int i = 0; i < 4; ++i) {
-            //printf("suit count %d\n", counts[i]);
             if(counts[i] > 0) {
                 if(weakest_suit == -1) {
                     weakest_suit = i;
@@ -92,7 +91,6 @@ card* choose_card(stack *hand, trick *t, suits trumps)
                         weakest_suit = i;
                     }
                 }
-                //printf("Found weaker suit\n");
             }
         }
         card *weakest_card = NULL;
@@ -111,6 +109,7 @@ card* choose_card(stack *hand, trick *t, suits trumps)
             printf("Led with ");
             print_card(t->cards[0]);
             print_stack(hand);
+            printf("Unable to choose a card.\n");
             abort();
         }
         return get_card(weakest_card, hand);
