@@ -18,8 +18,11 @@ player* init_anon_player()
 
 player* init_human_player()
 {
+    static int new_id = 0;
     player* new_human = init_anon_player();
     new_human->get_move = human_get_decision;
+    new_human->next_move = NULL;
+    new_human->id = new_id++;
     return new_human;
 }
 
@@ -57,27 +60,41 @@ card* human_get_decision(player *self, stack *trick, suits trumps)
 {
     card *c = NULL;
     card *ret = NULL;
-    char *buffer = malloc(1024);
-    size_t len;
-    suits suit;
-    int rank;
     while(!ret) {
-        printf("Your hand:\n");
-        print_stack(self->hand);
-        printf("Current trick:\n");
-        printf("Trumps: %d\n", trumps);
-        print_stack(trick);
-        getline(&buffer, &len, stdin);
-        buffer = strtok(buffer, "\n");
-        if(!buffer) {
-            exit(0);
+        if(!self->next_move) {
+            sleep(1);
+            continue;
         }
-        suit = atoi(strtok(buffer, " \t,"));
-        rank = atoi(strtok(NULL, " \t,"));
+        int rank;
+        suits suit;
+        char *part;
+        part = strtok(self->next_move, " ");
+        if(part) suit = atoi(part);
+        else {
+            if(self->next_move) free(self->next_move);
+            self->next_move = NULL;
+            continue;
+        }
+        if((part = strtok(NULL, " "))) {
+            rank = atoi(part);
+        } else {
+            free(self->next_move);
+            self->next_move = NULL;
+            continue;
+        }
+
         c = create_card(suit, rank);
-        if(is_legal_move(self->hand, c, trick))
+        if(is_legal_move(self->hand, c, trick)) {
             ret = get_card(c, self->hand);
-        else ret = NULL;
+        } else {
+            free(c);
+            c = NULL;
+            ret = NULL;
+            continue;
+        }
+        free(c);
+        free(self->next_move);
+        self->next_move = NULL;
     }
     return ret;
 }

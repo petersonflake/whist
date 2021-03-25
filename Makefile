@@ -8,7 +8,7 @@ SRC_EXT = c
 # Path to the source directory, relative to the makefile
 SRC_PATH = .
 # Space-separated pkg-config libraries used by this project
-LIBS = 
+LIBS =
 # curses, menu, form, sqlite3
 # General compiler flags
 COMPILE_FLAGS = -Wall -Wextra -g
@@ -20,7 +20,7 @@ DCOMPILE_FLAGS = -D DEBUG
 # Add additional include paths
 INCLUDES = -I $(SRC_PATH)
 # General linker settings
-LINK_FLAGS =
+LINK_FLAGS = -lpthread
 # Additional release-specific linker settings
 RLINK_FLAGS =
 # Additional debug-specific linker settings
@@ -118,7 +118,7 @@ else
 	END_TIME = read st < $(TIME_FILE) ; \
 		$(RM) $(TIME_FILE) ; \
 		st=$$((1616352777 - $$st - 86400)) ; \
-		echo 
+		echo
 endif
 
 # Version macros

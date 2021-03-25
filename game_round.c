@@ -5,7 +5,7 @@ game_round* create_game(player *player_N, player *player_E, player *player_S, pl
     /* To identify game when multiple games are in progress */
     static int id = 0;
     game_round *new_game = malloc(sizeof(game_round));
-    new_game->game_id = ++id;
+    new_game->game_id = id++;
     new_game->team_1_score = 0;
     new_game->team_2_score = 0;
     new_game->current_turn = rand()%4;
@@ -38,13 +38,38 @@ game_round* create_game(player *player_N, player *player_E, player *player_S, pl
     for(int i = 0; i < 4; ++i) {
         sort_cards(new_game->players[i]->hand);
     }
+    fprintf(stderr, "Started new game: %d\n", new_game->game_id);
     return new_game;
+}
+
+game_array* init_game_array(int max_size)
+{
+    game_array *all_games = malloc(sizeof(game_array));
+    all_games->all_games = calloc(max_size, sizeof(game_round*));
+    all_games->count = 0;
+    all_games->size = max_size;
+    return all_games;
+}
+
+int game_array_new(game_array *ga, int options)
+{
+    if(ga->count >= ga->size) return -1;
+    ga->all_games[ga->count] = 
+        create_game(init_human_player(), init_ai_player(), init_ai_player(), init_ai_player());
+    return ga->all_games[ga->count++]->game_id;
+}
+
+char *get_game_info(game_round *g)
+{
+    char *msg = malloc(4096);
+    return msg;
 }
 
 int play_card(game_round *round, directions dir, card *c);
 
-void play_game(game_round *self)
+void *play_game(void *arg)
 {
+    game_round *self = (game_round*)arg;
     for(int i = 0; i < 13; ++i) {
         self->trick->count = 0;
         while(self->trick->count < 4) {
@@ -57,7 +82,7 @@ void play_game(game_round *self)
                 push_card(self->trick, chosen);
             else {
                 printf("Attempted illegal move.\n");
-                return;
+                return NULL;
             }
         }
         directions winner;
@@ -79,6 +104,7 @@ void play_game(game_round *self)
         self->trick->count = 0;
     }
     printf("Winner %d\n", (self->team_2_score - self->team_1_score > 0) ? 2 : 1);
+    return NULL;
 }
 
 void free_game_round(game_round *game)
