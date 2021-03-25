@@ -75,7 +75,9 @@ card* human_get_decision(player *self, stack *trick, suits trumps)
         suit = atoi(strtok(buffer, " \t,"));
         rank = atoi(strtok(NULL, " \t,"));
         c = create_card(suit, rank);
-        ret = get_card(c, self->hand);
+        if(is_legal_move(self->hand, c, trick))
+            ret = get_card(c, self->hand);
+        else ret = NULL;
     }
     return ret;
 }
