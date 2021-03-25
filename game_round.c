@@ -49,10 +49,9 @@ void play_game(game_round *self)
         self->trick->count = 0;
         while(self->trick->count < 4) {
             self->current_turn = ++self->current_turn%4;
-            card *chosen=self->players[self->current_turn]->get_move(self->players[self->current_turn], self->trick, self->trumps);
-            if(!chosen) {
-                fprintf(stderr, "Player did not choose a card.\n");
-                return;
+            card *chosen = NULL;
+            while(!chosen) {
+                chosen=self->players[self->current_turn]->get_move(self->players[self->current_turn], self->trick, self->trumps);
             }
             if(is_legal_move(self->players[self->current_turn]->hand, chosen, self->trick))
                 push_card(self->trick, chosen);
