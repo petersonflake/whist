@@ -61,25 +61,26 @@ card* human_get_decision(player *self, stack *trick, suits trumps)
     card *c = NULL;
     card *ret = NULL;
     while(!ret) {
-        if(!self->next_move) {
-            sleep(1);
-            continue;
-        }
+        printf("Current hand:\n");
+        print_stack(self->hand);
+        printf("Current Trick\n");
+        print_stack(trick);
         int rank;
         suits suit;
         char *part;
-        part = strtok(self->next_move, " ");
+        char *buffer = malloc(1024);
+        size_t len;
+        getline(&buffer, &len, stdin);
+        part = strtok(buffer, " ");
         if(part) suit = atoi(part);
         else {
-            if(self->next_move) free(self->next_move);
-            self->next_move = NULL;
+            free(buffer);
             continue;
         }
         if((part = strtok(NULL, " "))) {
             rank = atoi(part);
         } else {
-            free(self->next_move);
-            self->next_move = NULL;
+            free(buffer);
             continue;
         }
 
@@ -93,8 +94,7 @@ card* human_get_decision(player *self, stack *trick, suits trumps)
             continue;
         }
         free(c);
-        free(self->next_move);
-        self->next_move = NULL;
+        free(buffer);
     }
     return ret;
 }
