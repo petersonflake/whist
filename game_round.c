@@ -73,7 +73,7 @@ void *play_game(void *arg)
     for(int i = 0; i < 13; ++i) {
         self->trick->count = 0;
         while(self->trick->count < 4) {
-            self->current_turn = ++self->current_turn%4;
+            self->current_turn = (self->current_turn + 1)%4;
             card *chosen = NULL;
             while(!chosen) {
                 chosen=self->players[self->current_turn]->get_move(self->players[self->current_turn], self->trick, self->trumps);
@@ -104,6 +104,12 @@ void *play_game(void *arg)
         self->trick->count = 0;
     }
     printf("Winner %d\n", (self->team_2_score - self->team_1_score > 0) ? 2 : 1);
+    if(self->team_2_score - self->team_1_score > 0) {
+        printf("Team East-West Won with %d\n", self->team_2_score);
+    } else {
+        printf("Team North-South Won with %d\n", self->team_1_score);
+    }
+    printf("Human Player is North\n");
     return NULL;
 }
 

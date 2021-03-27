@@ -49,6 +49,10 @@ void sort_cards(stack *cards);
 #ifdef DEV
 void print_card(card* c);
 
+char* print_cardf(card* c);
+
 void print_stack(stack *s);
+
+char* print_stackf(stack *s);
 #endif
 #endif

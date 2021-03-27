@@ -149,10 +149,63 @@ void print_card(card* c)
             break;
     }
 }
+
+char* print_cardf(card* c)
+{
+    char *buffer = malloc(1024);
+    char num[20];
+    strcpy(buffer, "The ");
+    switch(c->rank) {
+        case 12:
+            strcat(buffer, "Ace of ");
+            break;
+        case 11:
+            strcat(buffer, "King of ");
+            break;
+        case 10:
+            strcat(buffer, "Queen of ");
+            break;
+        case 9:
+            strcat(buffer, "Jack of ");
+            break;
+        default:
+            sprintf(num, "%d of", c->rank+2);
+            strcat(buffer, num);
+            break;
+    }
+
+    switch(c->suit) {
+        case HEARTS:
+            strcat(buffer, "Hearts\n");
+            break;
+        case DIAMONDS:
+            strcat(buffer, "Diamonds\n");
+            break;
+        case CLUBS:
+            strcat(buffer, "Clubs\n");
+            break;
+        case SPADES:
+            strcat(buffer, "Spades\n");
+            break;
+    }
+    return buffer;
+}
 void print_stack(stack *s)
 {
     for(int i = 0; i < s->count; ++i) {
         print_card(s->cards[i]);
     }
+}
+
+char* print_stackf(stack *s)
+{
+    char *buffer = malloc(4096);
+    *buffer = '\0';
+    for(int i = 0; i < s->count; ++i) {
+        char *c = print_cardf(s->cards[i]);
+        strcat(buffer, c);
+        free(c);
+    }
+    return buffer;
 }
 #endif

@@ -50,6 +50,27 @@ str_vector* str_vector_from_string(char *string)
     return new_vec;
 }
 
+str_vector* str_vector_from_string_nl(char *string)
+{
+    str_vector* new_vec = create_empty_str_vector(5);
+    char *duplicate = strdup(string);
+    char *new_string = strtok(duplicate, "\n");
+    if(push_str_vector(new_vec, new_string) == -1) {
+        free_str_vector(new_vec);
+        free(duplicate);
+        return NULL;
+    }
+    while((new_string = strtok(NULL, "\n"))) {
+        if(push_str_vector(new_vec, new_string) == -1) {
+            free_str_vector(new_vec);
+            free(duplicate);
+            return NULL;
+        }
+    }
+    free(duplicate);
+    return new_vec;
+}
+
 void free_str_vector(str_vector *vec)
 {
     for(int i = 0; i < vec->count; ++i) {

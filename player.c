@@ -65,26 +65,17 @@ card* human_get_decision(player *self, stack *trick, suits trumps)
         print_stack(self->hand);
         printf("Current Trick\n");
         print_stack(trick);
+        printf("Trumps: %d\n", trumps);
         int rank;
         suits suit;
-        char *part;
-        char *buffer = malloc(1024);
-        size_t len;
-        getline(&buffer, &len, stdin);
-        part = strtok(buffer, " ");
-        if(part) suit = atoi(part);
-        else {
-            free(buffer);
-            continue;
+        char *buffer = malloc(4096);
+        get_line_compl("Whist>", buffer);
+        parse_move(buffer, &rank, &suit);
+        if(!strcmp(buffer, "quit")) {
+            exit(0);
         }
-        if((part = strtok(NULL, " "))) {
-            rank = atoi(part);
-        } else {
-            free(buffer);
-            continue;
-        }
-
         c = create_card(suit, rank);
+        print_card(c);
         if(is_legal_move(self->hand, c, trick)) {
             ret = get_card(c, self->hand);
         } else {

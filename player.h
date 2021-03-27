@@ -2,8 +2,11 @@
 #define PLAYER_H
 #include <string.h>
 #include <unistd.h>
+#include "string_vector.h"
 #include "whist.h"
 #include "ai.h"
+#include "line_edit.h"
+#include "parse.h"
 
 typedef struct _player player;
 

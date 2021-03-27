@@ -18,6 +18,8 @@ str_vector* copy_str_vector(str_vector *vec);
 
 str_vector* str_vector_from_string(char *string);
 
+str_vector* str_vector_from_string_nl(char *string);
+
 void free_str_vector(str_vector *vec);
 
 int push_str_vector(str_vector *dest, char *string);
