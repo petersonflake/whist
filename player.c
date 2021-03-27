@@ -65,7 +65,24 @@ card* human_get_decision(player *self, stack *trick, suits trumps)
         print_stack(self->hand);
         printf("Current Trick\n");
         print_stack(trick);
-        printf("Trumps: %d\n", trumps);
+        printf("Current trumps: ");
+        switch(trumps) {
+            case HEARTS:
+                printf("Hearts\n");
+                break;
+            case DIAMONDS:
+                printf("Diamonds\n");
+                break;
+            case SPADES:
+                printf("Spades\n");
+                break;
+            case CLUBS:
+                printf("Clubs\n");
+                break;
+            default:
+                fprintf(stderr, "Invalid card of suit %d\n", trumps);
+                abort();
+        }
         int rank;
         suits suit;
         char *buffer = malloc(4096);
@@ -75,7 +92,6 @@ card* human_get_decision(player *self, stack *trick, suits trumps)
             exit(0);
         }
         c = create_card(suit, rank);
-        print_card(c);
         if(is_legal_move(self->hand, c, trick)) {
             ret = get_card(c, self->hand);
         } else {
