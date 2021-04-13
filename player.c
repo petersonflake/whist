@@ -10,9 +10,11 @@ player* init_player(char *name)
 
 player* init_anon_player()
 {
+    static int current_id = 0;
     player *new_player = malloc(sizeof(player));
     new_player->name = strdup("Anonymous");
     new_player->hand = create_hand();
+    new_player->id = ++current_id;
     return new_player;
 }
 
@@ -61,11 +63,11 @@ card* human_get_decision(player *self, stack *trick, suits trumps)
     card *c = NULL;
     card *ret = NULL;
     while(!ret) {
-        printf("Current hand:\n");
+        printf("\nCurrent hand:\n");
         print_stack(self->hand);
-        printf("Current Trick\n");
+        printf("\nCurrent Trick\n");
         print_stack(trick);
-        printf("Current trumps: ");
+        printf("\nCurrent trumps: ");
         switch(trumps) {
             case HEARTS:
                 printf("Hearts\n");

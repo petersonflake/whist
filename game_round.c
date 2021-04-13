@@ -38,7 +38,6 @@ game_round* create_game(player *player_N, player *player_E, player *player_S, pl
     for(int i = 0; i < 4; ++i) {
         sort_cards(new_game->players[i]->hand);
     }
-    fprintf(stderr, "Started new game: %d\n", new_game->game_id);
     return new_game;
 }
 
@@ -78,9 +77,11 @@ void *play_game(void *arg)
             while(!chosen) {
                 chosen=self->players[self->current_turn]->get_move(self->players[self->current_turn], self->trick, self->trumps);
             }
-            if(is_legal_move(self->players[self->current_turn]->hand, chosen, self->trick))
+            if(is_legal_move(self->players[self->current_turn]->hand, chosen, self->trick)) {
+                printf("Player %d player card:\n", self->current_turn);
+                print_card(chosen);
                 push_card(self->trick, chosen);
-            else {
+            } else {
                 printf("Attempted illegal move.\n");
                 return NULL;
             }
