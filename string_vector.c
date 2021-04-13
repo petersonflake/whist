@@ -84,7 +84,7 @@ int push_str_vector(str_vector *dest, char *string)
 {
     if(dest->count >= dest->space - 1) {
         dest->space += 10;
-        void *tmp = reallocarray(dest->data, dest->space, sizeof(char*));
+        void *tmp = realloc(dest->data, dest->space * sizeof(char*));
         if(tmp) dest->data = tmp;
         else return -1;
     }
