@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdarg.h>
-#include "reallocarray.h"
 
 typedef struct {
     char **data;
